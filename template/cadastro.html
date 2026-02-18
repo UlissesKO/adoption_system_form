@@ -29,8 +29,10 @@
   <button type="button" onclick="voltarCadastro()">Voltar ao Cadastro</button>
 </div>
 
-<p>Veja o Painel de Adotantes:</p>
-<a href="{{ url_for('main_screen') }}" class="btn">Continuar</a>
+<div style="text-align:center; margin-top:20px;">
+  <p style="margin-bottom:10px;">Veja o Painel de Adotantes:</p>
+  <a href="{{ url_for('main_screen') }}" class="btn">Continuar</a>
+</div>
 {% endblock %}
 
 {% block scripts %}

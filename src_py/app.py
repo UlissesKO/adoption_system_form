@@ -20,7 +20,16 @@ def get_db_connection():
         database=os.getenv("DB_NAME")
     )
 
-@app.route("/")
+@app.route("/login")
+def login():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM adotantes")
+    adotantes = cursor.fetchall()
+    conn.close()
+    return render_template("login.html", adotantes=adotantes)
+
+@app.route("/main_screen")
 def main_screen():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)

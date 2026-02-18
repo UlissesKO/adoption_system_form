@@ -1,25 +1,22 @@
-<!-- "Tela de Login" -->
+<!-- tela_login.html -->
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Logar Conta</h2>
+  <h2>Logar Conta</h2>
 
-<form method="POST" action="/salvar">
-  <input type="email" name="email" placeholder="Email" required><br>
-  <input type="senha" name="senha" placeholder="Senha" required><br>
-  <button type="submit">Acessar Conta</button>
-</form>
+  <form method="POST" action="/salvar">
+    <input type="email" name="email" placeholder="Email" required><br>
+    <input type="password" name="senha" placeholder="Senha" required><br>
+    <button type="submit">Acessar Conta</button>
+  </form>
 
-<p>Nao possui cadastro? Junte se a nos!
-<button type="submit">Criar Cadastro</button>
-</p>
+  <p>Não possui cadastro? Junte-se a nós!</p>
+  <form method="GET" action="/cadastro">
+    <button type="submit">Criar Cadastro</button>
+  </form>
 
-<hr>
-
-<div id="previewArea" style="margin-top:20px; display:none; text-align:center;">
-  <button type="button" onclick="voltarCadastro()">Voltar ao Cadastro</button>
-</div>
+{% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 {% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Escolha suas preferências</h2>
+
+  <form method="POST" action="/preferencias">
+    <label for="pet">Selecione um animal:</label>
+    <select name="pet_id" id="pet">
+      {% for pet in pets %}
+        <option value="{{ pet.id }}">
+          {{ pet.tipo }} - {{ pet.sexo }}
+        </option>
+      {% endfor %}
+    </select>
+    <br><br>
+    <button type="submit">Salvar</button>
+  </form>
+
+  <br>
+  <form method="GET" action="/main_screen">
+    <button type="submit">Voltar à lista de adotantes</button>
+  </form>
+{% endblock %}
+
+
+
+
+
+
+<!-- "Lista de animais adotantes, USUARIO IRA ESCOLHER SUAS PREFERENCIAS" -->
+
+
+<!-- Gato ou Cachorro, sexo, todos esses dados estarao na tabela pets-->
+
+<!--Ao realizar a selecao do animal escolhido, apertar em botao salvar e colocar um botao em alguma parte da tela para voltar a lista dos adotantes-->

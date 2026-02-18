@@ -20,14 +20,33 @@ def get_db_connection():
         database=os.getenv("DB_NAME")
     )
 
-@app.route("/login")
+
+
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM adotantes")
-    adotantes = cursor.fetchall()
-    conn.close()
-    return render_template("login.html", adotantes=adotantes)
+    if request.method == "POST":
+        email = request.form["email"]
+        senha = request.form["senha"]
+
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM adotantes WHERE email=%s AND senha=%s", (email, senha))
+        usuario = cursor.fetchone()
+        conn.close()
+
+        if usuario:
+            # Login válido → vai para tela de preferências
+            return redirect(url_for("preferencias"))
+        else:
+            # Login inválido → volta para login com mensagem
+            return render_template("login.html", erro="Email ou senha incorretos")
+
+    # Se for GET, apenas renderiza o formulário
+    return render_template("login.html")
+
+@app.route("/")
+def index():
+    return redirect(url_for("login"))
 
 @app.route("/main_screen")
 def main_screen():
@@ -41,6 +60,23 @@ def main_screen():
 @app.route("/cadastro")
 def cadastro():
     return render_template("cadastro.html")
+
+@app.route("/preferencias", methods=["GET", "POST"])
+def preferencias():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM pets")
+    pets = cursor.fetchall()
+    conn.close()
+
+    if request.method == "POST":
+        pet_id = request.form.get("pet_id")
+        # Aqui você pode salvar a preferência do usuário no banco
+        # Exemplo: inserir em uma tabela preferencias
+        return redirect(url_for("main_screen"))
+
+    return render_template("preferencias.html", pets=pets)
+
 
 @app.route("/salvar", methods=["POST"])
 def salvar():

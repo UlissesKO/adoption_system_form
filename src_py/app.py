@@ -36,8 +36,8 @@ def cadastro():
 @app.route("/salvar", methods=["POST"])
 def salvar():
     nome = request.form["nome"]
-    cpf = request.form["cpf"]
     email = request.form["email"]
+    senha = request.form["senha"]
     telefone = request.form["telefone"]
     endereco = request.form["endereco"]
     ambiente = request.form["ambiente"]
@@ -45,8 +45,8 @@ def salvar():
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO adotantes (nome, cpf, email, telefone, endereco, ambiente) VALUES (%s, %s, %s, %s, %s, %s)",
-        (nome, cpf, email, telefone, endereco, ambiente)
+        "INSERT INTO adotantes (nome, email, senha,  telefone, endereco, ambiente) VALUES (%s, %s, %s, %s, %s, %s)",
+        (nome, email, senha, telefone, endereco, ambiente)
     )
     conn.commit()
     conn.close()

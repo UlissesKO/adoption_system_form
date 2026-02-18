@@ -9,13 +9,13 @@ USE DATABASE tocadospeludos;
 CREATE TABLE adotantes (
     id INTEGER PRIMARY KEY auto_increment,
     nome VARCHAR(50) NOT NULL,
-    cpf VARCHAR(50) UNIQUE NOT NULL,
     email TEXT NOT NULL,
+    senha TEXT NOT NULL,
     telefone VARCHAR(50),
     endereco TEXT,
-    ambiente TEXT, -- casa, apartamento, quintal etc.
-    documento TEXT -- caminho do arquivo enviado
+    ambiente TEXT -- casa, apartamento, quintal etc.
 );
+
 
 CREATE TABLE pets (
     id INTEGER PRIMARY KEY auto_increment,

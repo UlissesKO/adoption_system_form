@@ -3,10 +3,14 @@ import mysql.connector
 from dotenv import load_dotenv
 import os
 from werkzeug.utils import secure_filename
+from flask import session
+
 
 load_dotenv(dotenv_path="C:\\tocadospeludos\\.env")
 
 app = Flask(__name__, template_folder="C:\\tocadospeludos\\template")
+
+app.secret_key = "chave-secreta"
 
 UPLOAD_FOLDER = "C:\\tocadospeludos\\static\\uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -19,6 +23,7 @@ def get_db_connection():
         password=os.getenv("DB_PASSWORD"),
         database=os.getenv("DB_NAME")
     )
+
 
 
 
@@ -35,14 +40,13 @@ def login():
         conn.close()
 
         if usuario:
-            # Login válido → vai para tela de preferências
+            session["id_adotante"] = usuario["id_adotante"]  # guarda na sessão
             return redirect(url_for("preferencias"))
         else:
-            # Login inválido → volta para login com mensagem
             return render_template("login.html", erro="Email ou senha incorretos")
 
-    # Se for GET, apenas renderiza o formulário
     return render_template("login.html")
+
 
 @app.route("/")
 def index():
@@ -65,17 +69,43 @@ def cadastro():
 def preferencias():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM pets")
-    pets = cursor.fetchall()
-    conn.close()
 
+    # GET → carregar raças filtradas
+    if request.method == "GET":
+        animal = request.args.get("animal")
+        sexo = request.args.get("sexo")
+
+        if animal and sexo:
+            cursor.execute("SELECT DISTINCT raca FROM pets WHERE animal=%s AND sexo=%s", (animal, sexo))
+            racas = cursor.fetchall()
+        else:
+            racas = []
+
+        conn.close()
+        return render_template("preferencias.html", racas=racas, animal=animal, sexo=sexo)
+
+    # POST → salvar adoção
     if request.method == "POST":
-        pet_id = request.form.get("pet_id")
-        # Aqui você pode salvar a preferência do usuário no banco
-        # Exemplo: inserir em uma tabela preferencias
-        return redirect(url_for("main_screen"))
+        animal = request.form.get("animal")
+        sexo = request.form.get("sexo")
+        raca = request.form.get("raca")
+        id_adotante = session.get("id_adotante")
 
-    return render_template("preferencias.html", pets=pets)
+        cursor.execute(
+            "SELECT id_pet FROM pets WHERE animal=%s AND sexo=%s AND raca=%s LIMIT 1",
+            (animal, sexo, raca)
+        )
+        pet = cursor.fetchone()
+
+        if pet:
+            cursor.execute(
+                "INSERT INTO adocoes (id_adotante, id_pet) VALUES (%s, %s)",
+                (id_adotante, pet["id_pet"])
+            )
+            conn.commit()
+
+        conn.close()
+        return redirect(url_for("preferencias"))
 
 
 @app.route("/salvar", methods=["POST"])

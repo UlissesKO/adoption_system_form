@@ -5,9 +5,9 @@ CREATE DATABASE tocadospeludos;
 USE DATABASE tocadospeludos;
 
 
-
+-- DADOS DOS ADOTANTES NO PAINEL 
 CREATE TABLE adotantes (
-    id INTEGER PRIMARY KEY auto_increment,
+    id_adotante INTEGER PRIMARY KEY auto_increment,
     nome VARCHAR(50) NOT NULL,
     email TEXT NOT NULL,
     senha TEXT NOT NULL,
@@ -16,14 +16,24 @@ CREATE TABLE adotantes (
     ambiente TEXT -- casa, apartamento, quintal etc.
 );
 
-
+-- METADADOS TELA PREFERENCIAS (DADOS DOS ANIMAIS NAS OPCOES DE SELECAO)
 CREATE TABLE pets(
-    id INT auto_increment PRIMARY KEY,
+    id_pet INT auto_increment PRIMARY KEY,
     animal VARCHAR(20) NOT NULL,
     sexo CHAR(1),
     idade INT,
     raca VARCHAR(50) NOT NULL
 );
+
+-- TELA PREFERENCIAS
+CREATE TABLE adocoes (
+    id_adotante INT,
+    id_pet INT,
+    FOREIGN KEY (id_adotante) REFERENCES adotantes(id_adotante),
+    FOREIGN KEY (id_pet) REFERENCES pets(id_pet)
+);
+
+
 
 INSERT INTO pets (animal, sexo, idade, raca) VALUES
 ('Cachorro', 'M', 3, 'Labrador'),

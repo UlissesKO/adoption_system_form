@@ -1,35 +1,47 @@
 {% extends "base.html" %}
-
 {% block content %}
   <h2>Escolha suas preferências</h2>
 
+  <!-- Filtro via GET -->
+  <form method="GET" action="/preferencias">
+    <label for="animal">Selecione um animal:</label>
+    <select name="animal" id="animal">
+      <option value="Gato" {% if animal == 'Gato' %}selected{% endif %}>Gato</option>
+      <option value="Cachorro" {% if animal == 'Cachorro' %}selected{% endif %}>Cachorro</option>
+    </select>
+    <br><br>
+
+    <label for="sexo">Selecione o sexo:</label>
+    <select name="sexo" id="sexo">
+      <option value="M" {% if sexo == 'M' %}selected{% endif %}>M</option>
+      <option value="F" {% if sexo == 'F' %}selected{% endif %}>F</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Filtrar</button>
+  </form>
+
+  <hr>
+
+  <!-- Salvar via POST -->
   <form method="POST" action="/preferencias">
-    <label for="pet">Selecione um animal:</label>
-    <select name="pet_id" id="pet">
-      {% for pet in pets %}
-        <option value="{{ pet.id }}">
-          {{ pet.tipo }} - {{ pet.sexo }}
-        </option>
+    <input type="hidden" name="animal" value="{{ animal }}">
+    <input type="hidden" name="sexo" value="{{ sexo }}">
+
+    <label for="raca">Selecione a raça:</label>
+    <select name="raca" id="raca">
+      {% for r in racas %}
+        <option value="{{ r.raca }}">{{ r.raca }}</option>
       {% endfor %}
     </select>
     <br><br>
-    <button type="submit">Salvar</button>
+
+    <button type="submit">Salvar Adoção</button>
   </form>
 
-  <br>
-  <form method="GET" action="/main_screen">
-    <button type="submit">Voltar à lista de adotantes</button>
-  </form>
+  <!-- Botão para voltar à tela de login -->
+<form action="/login" method="GET" style="margin-top:10px;">
+  <button type="submit">Voltar para Login</button>
+</form>
+
 {% endblock %}
-
-
-
-
-
-
-<!-- "Lista de animais adotantes, USUARIO IRA ESCOLHER SUAS PREFERENCIAS" -->
-
-
-<!-- Gato ou Cachorro, sexo, todos esses dados estarao na tabela pets-->
-
-<!--Ao realizar a selecao do animal escolhido, apertar em botao salvar e colocar um botao em alguma parte da tela para voltar a lista dos adotantes-->

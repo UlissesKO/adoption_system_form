@@ -27,6 +27,7 @@ CREATE TABLE pets(
 
 -- TELA PREFERENCIAS
 CREATE TABLE adocoes (
+    id_adocao INT AUTO_INCREMENT PRIMARY KEY,
     id_adotante INT,
     id_pet INT,
     FOREIGN KEY (id_adotante) REFERENCES adotantes(id_adotante),

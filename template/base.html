@@ -2,111 +2,111 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Projeto{% endblock %}</title>
+    <title>{% block title %}projeto{% endblock %}</title>
     <style>
+        /* Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #001f3f; /* azul marinho */
-            color: #f0f0f0;
-            margin: 0;
-            padding: 0;
+            font-family: 'Open Sans', Arial, sans-serif;
+            background-color: #f5f5dc; /* bege claro */
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        header {
-            background-color: #003366;
-            padding: 15px;
+        header, footer {
+            background-color: #8b4513; /* marrom */
+            color: #fff;
             text-align: center;
-            font-size: 24px;
+            padding: 15px;
             font-weight: bold;
         }
 
         main {
+            flex: 1;
+            display: block;
+            text-align: center;
             padding: 20px;
         }
 
-        h2 {
-            text-align: center;
+        h1, h2, h3 {
+            font-weight: bold;
             margin-bottom: 20px;
         }
 
-        form {
+        .content-box {
+            background: #fff;
+            color: #333;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            display: inline-block;
             text-align: center;
-            margin-top: 20px;
+            max-width: 500px;
+            width: 100%;
         }
 
-        input[type="email"],
-        input[type="password"],
-        input[type="text"] {
-            padding: 10px;
-            width: 250px;
-            margin-bottom: 10px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
+        form {
+            margin-top: 15px;
         }
+
+        input, select {
+            padding: 10px;
+            width: 250px;   /* largura fixa menor */
+            margin: 8px auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        button, .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            background: #90ee90; /* verde claro */
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        button:hover, .btn:hover {
+            background: #66cc66; /* verde mais forte no hover */
+            color: #fff;
+        }
+
 
         table {
             width: 80%;
             margin: 20px auto;
             border-collapse: collapse;
-            background-color: #ffffff;
-            color: #000000;
+            background: #fff;
             border-radius: 8px;
             overflow: hidden;
         }
-
         th, td {
             padding: 12px;
-            text-align: center;
             border-bottom: 1px solid #ddd;
         }
-
         th {
-            background-color: #003366;
-            color: #ffffff;
+            background: #8b4513;
+            color: #fff;
         }
-
-        tr:hover {
-            background-color: #f2f2f2;
-        }
-
-        .btn {
-            display: inline-block;
-            margin: 10px auto;
-            padding: 12px 20px;
-            background-color: #0074D9;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #005fa3;
-        }
-
-        footer {
-            background-color: #003366;
-            text-align: center;
-            padding: 10px;
-            margin-top: 30px;
-        }
+        tr:hover { background: #f2f2f2; }
     </style>
 </head>
 <body>
-    <header>
-        Projeto
-    </header>
+    <header>Toca Dos Peludos</header>
 
     <main>
         {% block content %}{% endblock %}
     </main>
 
-    <footer>
-        Rodapé
-    </footer>
+    <footer>tocadospeludosONG2026®</footer>
 
     {% block scripts %}{% endblock %}
 </body>

@@ -4,33 +4,48 @@
 {% block content %}
 <h2>Cadastro de Adotante</h2>
 
-<form method="POST" action="/salvar">
+<form method="POST" action="/salvar" enctype="multipart/form-data">
   <input type="text" name="nome" placeholder="Nome" required><br>
   <input type="email" name="email" placeholder="Email" required><br>
-    <input type="text" name="senha" placeholder="Senha" required><br>
-  <input type="text" name="telefone" placeholder="Telefone"><br>
-  <input type="text" name="endereco" placeholder="Endereço"><br>
-  <input type="text" id="ambiente" name="ambiente" placeholder="Ambiente"><br>
-  <button type="submit">Enviar Cadastro</button>
+  <input 
+    type="password" 
+    name="senha" 
+    placeholder="Senha" 
+    required
+    minlength="8"
+    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$"><!--Regex para validação da senha--><br>
+  <p>A senha deve conter:<br>
+     - 8 caracteres<br>
+     - Pelo menos 1 caracter minúsculo e 1 maiúsculo<br>
+     - Pelo menos 1 número<br>
+     - Pelo menos 1 caracter especial</p>
+  <input type="text" name="telefone" placeholder="Telefone" required><br>
+  <input type="text" name="endereco" placeholder="Endereço" required><br>
+
+  <label for="ambiente">Selecione o seu ambiente:</label>
+  <select name="ambiente" id="ambiente" style="margin-bottom: 20px;">
+    <option value="Casa com quintal">Casa com quintal</option>
+    <option value="Casa sem quintal">Casa sem quintal</option>
+    <option value="Apartamento">Apartamento</option>
+  </select><br>
+
+  <label class="btn">
+    Selecionar foto do ambiente: 
+    <input type="file" id="foto" name="foto" accept="image/*" required>
+  </label>
+
+  <div id="previewArea">
+    <h3>Pré-visualização da Foto</h3>
+    <img id="previewImg" src="" alt="Foto do ambiente">
+  </div><br>
+
+  <button type="submit" class="btn">Enviar Cadastro</button>
 </form>
 
 <hr>
 
-<form id="uploadForm" enctype="multipart/form-data">
-  <label for="foto">Envie uma foto do ambiente:</label><br>
-  <input type="file" id="foto" name="foto"><br><br>
-  <button type="button" onclick="uploadFoto()">Upload Foto</button>
-</form>
-
-<div id="previewArea" style="margin-top:20px; display:none; text-align:center;">
-  <h3>Pré-visualização da Foto</h3>
-  <img id="previewImg" src="" alt="Foto do ambiente" style="max-width:400px; border:1px solid #ccc; border-radius:8px;">
-  <br><br>
-  <button type="button" onclick="voltarCadastro()">Voltar ao Cadastro</button>
-</div>
-
 <div style="text-align:center; margin-top:20px;">
-  <p style="margin-bottom:20px;">Veja o Painel de Adotantes:</p>
+  <p style="margin-bottom:10px;">Veja o Painel de Adotantes:</p>
   <a href="{{ url_for('main_screen') }}" class="btn">Continuar</a>
 </div>
 {% endblock %}

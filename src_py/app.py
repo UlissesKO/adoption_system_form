@@ -10,17 +10,17 @@ from werkzeug.security import check_password_hash
 from uuid import uuid4 #Renomeio do arquivo (Evita colisão de nomes)
 
 
-load_dotenv(dotenv_path="/home/ulisses/adoption_system_form/.env") #Alterado para rodar no linux
+load_dotenv(dotenv_path="C:\\tocadospeludos\\.env") #Alterado para rodar no linux
 
 app = Flask(
     __name__, 
-    template_folder="/home/ulisses/adoption_system_form/template",
-    static_folder="/home/ulisses/adoption_system_form/static"
+    template_folder="C:\\tocadospeludos\\template",
+    static_folder="C:\\tocadospeludos\\static"
     ) #Alterado para rodar no linux
 
 app.secret_key = "chave-secreta"
 
-UPLOAD_FOLDER = "/home/ulisses/adoption_system_form/uploads" #Alterado para rodar no linux
+UPLOAD_FOLDER = "C:\\tocadospeludos\\static\\uploads" #Alterado para rodar no linux
 
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"} #Extensões válidas para upload de imagem
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -130,7 +130,7 @@ def salvar():
 
     #Validação se o e-mail existe
     email = request.form["email"]
-    if not match("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|edu)(\.[a-zA-Z]{2})?$", email):
+    if not match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|edu)(\.[a-zA-Z]{2})?$", email):
         return "Email fora do padrão", 400
     else:
         conn = get_db_connection()
@@ -143,7 +143,7 @@ def salvar():
 
     #Validação dos requisitos de segurança da senha
     senha = request.form["senha"]
-    if not match("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$", senha):
+    if not match(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$", senha):
         return "Senha não atende aos requisitos de segurança", 400
     
     telefone = request.form["telefone"]

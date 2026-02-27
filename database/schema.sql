@@ -2,7 +2,7 @@
 
 CREATE DATABASE tocadospeludos;
 
-USE DATABASE tocadospeludos;
+USE tocadospeludos;
 
 
 -- DADOS DOS ADOTANTES NO PAINEL 
@@ -13,7 +13,8 @@ CREATE TABLE adotantes (
     senha TEXT NOT NULL,
     telefone VARCHAR(50),
     endereco TEXT,
-    ambiente TEXT -- casa, apartamento, quintal etc.
+    ambiente TEXT, -- casa, apartamento, quintal etc.
+    foto TEXT -- Caminho para o arquivo da foto
 );
 
 -- METADADOS TELA PREFERENCIAS (DADOS DOS ANIMAIS NAS OPCOES DE SELECAO)

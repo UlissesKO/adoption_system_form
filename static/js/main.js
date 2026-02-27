@@ -1,27 +1,42 @@
-// script JAVASCRIPT
+document.addEventListener("DOMContentLoaded", function () {
 
-function uploadFoto() {
-    const formData = new FormData(document.getElementById("uploadForm"));
-    fetch("/upload_foto", {
-        method: "POST",
-        body: formData
-    })
-    .then(response => response.text())
-    .then(path => {
-        // Preenche automaticamente o campo ambiente com o caminho salvo no servidor
-        document.getElementById("ambiente").value = path;
+    const fotoInput = document.getElementById("foto");
+    const previewImg = document.getElementById("previewImg");
+    const previewArea = document.getElementById("previewArea");
 
-        // Mostra a pré-visualização
-        document.getElementById("previewImg").src = "/" + path;
-        document.getElementById("previewArea").style.display = "block";
-    })
-    .catch(error => {
-        console.error("Erro no upload:", error);
-        alert("Erro ao enviar a foto.");
-    });
-}
+    if (fotoInput) {
+        fotoInput.addEventListener("change", function () {
 
-function voltarCadastro() {
-    // Esconde a área de pré-visualização
-    document.getElementById("previewArea").style.display = "none";
-}
+            const file = this.files[0];
+
+            if (!file) {
+                previewArea.style.display = "none";
+                return;
+            }
+
+            // Validação básica de tipo
+            if (!file.type.startsWith("image/")) {
+                alert("Selecione apenas imagens.");
+                fotoInput.value = "";
+                return;
+            }
+
+            // Limite de tamanho (ex: 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert("Imagem muito grande (máx 5MB).");
+                fotoInput.value = "";
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                previewImg.src = e.target.result;
+                previewArea.style.display = "block";
+            };
+
+            reader.readAsDataURL(file);
+        });
+    }
+
+});

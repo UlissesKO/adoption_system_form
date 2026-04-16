@@ -79,6 +79,16 @@ def main_screen():
 def cadastro():
     return render_template("cadastro.html")
 
+@app.route("/contato", methods=["GET", "POST"])
+def contato():
+    if request.method == "POST":
+        nome = request.form.get("nome")
+        email = request.form.get("email")
+        mensagem = request.form.get("mensagem")
+        # Aqui você poderia salvar no banco ou enviar por email
+        return redirect(url_for("contato"))
+    return render_template("contato.html")
+
 @app.route("/preferencias", methods=["GET", "POST"])
 def preferencias():
     conn = get_db_connection()

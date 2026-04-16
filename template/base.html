@@ -6,18 +6,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 </head>
 <body>
-    <header>
-        Projeto
-    </header>
+<header style="background-color:#8B5E3C; padding:10px;">
+    <nav style="text-align:center;">
+        <a href="{{ url_for('main_screen') }}" style="margin:0 15px; color:white;">Painel</a>
+        <a href="{{ url_for('contato') }}" style="margin:0 15px; color:white;">Contato</a>
+    </nav>
+</header>
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+<main>
+    {% block content %}{% endblock %}
+</main>
 
-    <footer>
-        Rodapé
-    </footer>
+<footer>
+    Rodapé
+</footer>
 
-    {% block scripts %}{% endblock %}
+{% block scripts %}{% endblock %}
 </body>
 </html>

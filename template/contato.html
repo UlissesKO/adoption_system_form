@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Fale Conosco{% endblock %}
+
+{% block content %}
+<h2 style="text-align:center;">Fale Conosco</h2>
+
+<!-- Formulário de contato -->
+<form method="POST" action="/contato" style="max-width:500px; margin:0 auto; text-align:center;">
+  <input type="text" name="nome" placeholder="Seu Nome" required style="width:100%; margin-bottom:10px;"><br>
+  <input type="email" name="email" placeholder="Seu Email" required style="width:100%; margin-bottom:10px;"><br>
+  <textarea name="mensagem" placeholder="Digite sua mensagem" rows="5" required style="width:100%; margin-bottom:10px;"></textarea><br>
+  <button type="submit" class="btn">Enviar Mensagem</button>
+</form>
+
+<br>
+
+<!-- Links de contato -->
+<div style="text-align:center; margin-top:20px;">
+  <p style="margin-bottom:15px; font-weight:bold;">Prefere falar diretamente?</p>
+  <a href="https://wa.me/5511999999999" target="_blank" class="btn" style="margin-right:15px;">
+    📱 WhatsApp
+  </a>
+  <a href="https://instagram.com/seu_perfil" target="_blank" class="btn">
+    📷 Instagram
+  </a>
+</div>
+{% endblock %}

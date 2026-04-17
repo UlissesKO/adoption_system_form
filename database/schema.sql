@@ -26,6 +26,14 @@ CREATE TABLE pets(
     raca VARCHAR(50) NOT NULL
 );
 
+# TELA CONTATO
+CREATE TABLE contato (
+    id_visitante INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(50) NOT NULL,
+    mensagem TEXT
+);
+
+
 -- TELA PREFERENCIAS
 CREATE TABLE adocoes (
     id_adocao INT AUTO_INCREMENT PRIMARY KEY,

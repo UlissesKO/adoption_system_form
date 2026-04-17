@@ -81,12 +81,26 @@ def cadastro():
 
 @app.route("/contato", methods=["GET", "POST"])
 def contato():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
     if request.method == "POST":
         nome = request.form.get("nome")
         email = request.form.get("email")
         mensagem = request.form.get("mensagem")
-        # Aqui você poderia salvar no banco ou enviar por email
-        return redirect(url_for("contato"))
+        if not nome or not email or not mensagem:
+            return render_template("contato.html", erro="Todos os campos são obrigatórios")
+
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            "INSERT INTO contato (email, mensagem) VALUES (%s, %s)",
+            (email, mensagem)
+        )
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return render_template("contato.html", sucesso="Mensagem registrada com sucesso!")
+    
     return render_template("contato.html")
 
 @app.route("/preferencias", methods=["GET", "POST"])

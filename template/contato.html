@@ -1,34 +1,57 @@
 {% extends "base.html" %}
 
-{% block title %}Fale Conosco{% endblock %}
+{% block title %}Fale Conosco - Toca dos Peludos{% endblock %}
 
 {% block content %}
-<h2 style="text-align:center;">Fale Conosco</h2>
+<section class="contato-section">
+  <h2>Fale Conosco</h2>
+  <p class="subtitulo">Estamos aqui para ajudar você a encontrar um novo amigo 🐾</p>
 
-<!-- Formulário de contato -->
-<form method="POST" action="/contato" style="max-width:500px; margin:0 auto; text-align:center;">
-  <input type="text" name="nome" placeholder="Seu Nome" required style="width:100%; margin-bottom:10px;"><br>
-  <input type="email" name="email" placeholder="Seu Email" required style="width:100%; margin-bottom:10px;"><br>
-  <textarea name="mensagem" placeholder="Digite sua mensagem" rows="5" required style="width:100%; margin-bottom:10px;"></textarea><br>
-  <button type="submit" class="btn">Enviar Mensagem</button>
-</form>
+  <div class="contato-grid">
 
-<br>
+    <!-- Coluna esquerda: TEXTO institucional -->
+    <div class="contato-info">
+      <h3>Sobre nossa associação</h3>
+      <p>
+        Somos uma associação dedicada ao <strong>resgate, cuidado e adoção responsável</strong>
+        de cães e gatos. Cada animal que passa por aqui recebe atenção, vacinas e muito amor
+        até encontrar um lar definitivo.
+      </p>
 
-{% if sucesso %}
-  <div class="alert alert-success">
-    {{ sucesso }}
+      <ul class="info-lista">
+        <li>🏠 <strong>Endereço:</strong> Rua dos Animais, 123 - São Paulo/SP</li>
+        <li>🕐 <strong>Atendimento:</strong> Seg a Sáb, 9h às 18h</li>
+        <li>✉️ <strong>Email:</strong> contato@patinhasfelizes.org</li>
+        <li>📞 <strong>Telefone:</strong> (11) 9999-9999</li>
+      </ul>
+
+      <p class="destaque">
+        💛 Quer adotar, doar ração ou ser voluntário? Mande sua mensagem ao lado!
+      </p>
+    </div>
+
+    <!-- Coluna direita: FORMULÁRIO -->
+    <div class="content-box">
+      <form method="POST" action="/contato">
+        <input type="text" name="nome" placeholder="Seu Nome" required>
+        <input type="email" name="email" placeholder="Seu Email" required>
+        <textarea name="mensagem" placeholder="Digite sua mensagem" rows="5" required></textarea>
+        <button type="submit" class="btn">Enviar Mensagem</button>
+      </form>
+
+      {% if sucesso %}
+        <div class="alert alert-success">{{ sucesso }}</div>
+      {% endif %}
+
+      <div class="contato-direto">
+        <p>Prefere falar diretamente?</p>
+        <div class="botoes-sociais">
+          <a href="https://wa.me/5511999999999" target="_blank" class="btn btn-wpp">📱 WhatsApp</a>
+          <a href="https://instagram.com/seu_perfil" target="_blank" class="btn btn-insta">📷 Instagram</a>
+        </div>
+      </div>
+    </div>
+
   </div>
-{% endif %}
-
-<!-- Links de contato -->
-<div style="text-align:center; margin-top:20px;">
-  <p style="margin-bottom:15px; font-weight:bold;">Prefere falar diretamente?</p>
-  <a href="https://wa.me/5511999999999" target="_blank" class="btn" style="margin-right:15px;">
-    📱 WhatsApp
-  </a>
-  <a href="https://instagram.com/seu_perfil" target="_blank" class="btn">
-    📷 Instagram
-  </a>
-</div>
+</section>
 {% endblock %}

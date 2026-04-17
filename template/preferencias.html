@@ -1,47 +1,65 @@
 {% extends "base.html" %}
+
+{% block title %}Preferências de Adoção{% endblock %}
+
 {% block content %}
-  <h2>Escolha suas preferências</h2>
+<section class="preferencias-section">
+  <h2>Escolha suas preferências 🐾</h2>
+  <p class="subtitulo">Conte-nos como é o seu lar ideal de adoção</p>
 
-  <!-- Filtro via GET -->
-  <form method="GET" action="/preferencias">
-    <label for="animal">Selecione um animal:</label>
-    <select name="animal" id="animal">
-      <option value="Gato" {% if animal == 'Gato' %}selected{% endif %}>Gato</option>
-      <option value="Cachorro" {% if animal == 'Cachorro' %}selected{% endif %}>Cachorro</option>
-    </select>
-    <br><br>
+  <!-- Card 1: Filtro -->
+  <div class="pref-card">
+    <h3>1. Filtrar animais disponíveis</h3>
+    <form method="GET" action="/preferencias">
+      <div class="pref-row">
+        <label for="animal">Selecione um animal:</label>
+        <select name="animal" id="animal">
+          <option value="Gato" {% if animal == 'Gato' %}selected{% endif %}>Gato</option>
+          <option value="Cachorro" {% if animal == 'Cachorro' %}selected{% endif %}>Cachorro</option>
+        </select>
+      </div>
 
-    <label for="sexo">Selecione o sexo:</label>
-    <select name="sexo" id="sexo">
-      <option value="M" {% if sexo == 'M' %}selected{% endif %}>M</option>
-      <option value="F" {% if sexo == 'F' %}selected{% endif %}>F</option>
-    </select>
-    <br><br>
+      <div class="pref-row">
+        <label for="sexo">Selecione o sexo:</label>
+        <select name="sexo" id="sexo">
+          <option value="M" {% if sexo == 'M' %}selected{% endif %}>M</option>
+          <option value="F" {% if sexo == 'F' %}selected{% endif %}>F</option>
+        </select>
+      </div>
 
-    <button type="submit">Filtrar</button>
-  </form>
+      <div class="pref-acoes">
+        <button type="submit">Filtrar</button>
+      </div>
+    </form>
+  </div>
 
-  <hr>
+  <!-- Card 2: Salvar Adoção -->
+  <div class="pref-card">
+    <h3>2. Confirmar adoção</h3>
+    <form method="POST" action="/preferencias">
+      <input type="hidden" name="animal" value="{{ animal }}">
+      <input type="hidden" name="sexo" value="{{ sexo }}">
 
-  <!-- Salvar via POST -->
-  <form method="POST" action="/preferencias">
-    <input type="hidden" name="animal" value="{{ animal }}">
-    <input type="hidden" name="sexo" value="{{ sexo }}">
+      <div class="pref-row">
+        <label for="raca">Selecione a raça:</label>
+        <select name="raca" id="raca">
+          {% for r in racas %}
+            <option value="{{ r.raca }}">{{ r.raca }}</option>
+          {% endfor %}
+        </select>
+      </div>
 
-    <label for="raca">Selecione a raça:</label>
-    <select name="raca" id="raca">
-      {% for r in racas %}
-        <option value="{{ r.raca }}">{{ r.raca }}</option>
-      {% endfor %}
-    </select>
-    <br><br>
+      <div class="pref-acoes">
+        <button type="submit">Salvar Adoção</button>
+      </div>
+    </form>
+  </div>
 
-    <button type="submit">Salvar Adoção</button>
-  </form>
-
-  <!-- Botão para voltar à tela de login -->
-<form action="/login" method="GET" style="margin-top:10px;">
-  <button type="submit">Voltar para Login</button>
-</form>
-
+  <!-- Voltar Login -->
+  <div class="pref-acoes">
+    <form action="/login" method="GET">
+      <button type="submit" class="btn-outline">Voltar para Login</button>
+    </form>
+  </div>
+</section>
 {% endblock %}

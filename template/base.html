@@ -2,16 +2,21 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Projeto{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <title>{% block title %}Toca dos Peludos - Adoção{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<header style="background-color:#8B5E3C; padding:10px;">
-    <nav style="text-align:center;">
-        <a href="{{ url_for('login') }}" style="margin:0 15px; color:white;">Login</a>
-        <a href="{{ url_for('main_screen') }}" style="margin:0 15px; color:white;">Painel</a>
-        <a href="{{ url_for('contato') }}" style="margin:0 15px; color:white;">Contato</a>
-    </nav>
+
+<header>
+    <div class="header-inner">
+        <div class="logo">🐾 Toca dos Peludos</div>
+        <nav>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('main_screen') }}">Painel</a>
+            <a href="{{ url_for('contato') }}">Contato</a>
+        </nav>
+    </div>
 </header>
 
 <main>
@@ -19,7 +24,7 @@
 </main>
 
 <footer>
-    Rodapé
+    <p>© 2025 Toca dos Peludos — Associação de Adoção de Animais</p>
 </footer>
 
 {% block scripts %}{% endblock %}

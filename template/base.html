@@ -7,26 +7,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <div class="header-inner">
+            <div class="logo">🐾 Toca dos Peludos</div>
+            <nav>
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('main_screen') }}">Painel</a>
+                <a href="{{ url_for('contato') }}">Contato</a>
+                <a href="{{ url_for('cadastro') }}" class="btn-nav-cta">Quero adotar</a>
+            </nav>
+        </div>
+    </header>
 
-<header>
-    <div class="header-inner">
-        <div class="logo">🐾 Toca dos Peludos</div>
-        <nav>
-            <a href="{{ url_for('login') }}">Login</a>
-            <a href="{{ url_for('main_screen') }}">Painel</a>
-            <a href="{{ url_for('contato') }}">Contato</a>
-        </nav>
-    </div>
-</header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
 
-<main>
-    {% block content %}{% endblock %}
-</main>
+    <footer>
+        © 2026 Toca dos Peludos
+    </footer>
 
-<footer>
-    <p>© 2025 Toca dos Peludos — Associação de Adoção de Animais</p>
-</footer>
-
-{% block scripts %}{% endblock %}
+    {% block scripts %}{% endblock %}
 </body>
 </html>

@@ -1,55 +1,100 @@
-<!-- "formulario de adoção" -->
 {% extends "base.html" %}
+{% block title %}Cadastro — Toca dos Peludos{% endblock %}
 
 {% block content %}
-<h2>Cadastro de Adotante</h2>
+<section class="form-section">
+    <div class="content-box content-box-wide">
+        <h2>Cadastro de Adotante</h2>
+        <p class="subtitulo">Junte-se a nós e encontre seu peludo ideal 🐾</p>
 
-<form method="POST" action="/salvar" enctype="multipart/form-data">
-  <input type="text" name="nome" placeholder="Nome" required><br>
-  <input type="email" name="email" placeholder="Email" required><br>
-  <input 
-    type="password" 
-    name="senha" 
-    placeholder="Senha" 
-    required
-    minlength="8"
-    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$"><!--Regex para validação da senha--><br>
-  <p>A senha deve conter:<br>
-     - 8 caracteres<br>
-     - Pelo menos 1 caracter minúsculo e 1 maiúsculo<br>
-     - Pelo menos 1 número<br>
-     - Pelo menos 1 caracter especial</p>
-  <input type="text" name="telefone" placeholder="Telefone" required><br>
-  <input type="text" name="endereco" placeholder="Endereço" required><br>
+        {% if erro %}<div class="alert-error">{{ erro }}</div>{% endif %}
 
-  <label for="ambiente">Selecione o seu ambiente:</label>
-  <select name="ambiente" id="ambiente" style="margin-bottom: 20px;">
-    <option value="Casa com quintal">Casa com quintal</option>
-    <option value="Casa sem quintal">Casa sem quintal</option>
-    <option value="Apartamento">Apartamento</option>
-  </select><br>
+        <form method="POST" action="{{ url_for('salvar') }}" enctype="multipart/form-data" class="form-grid">
+            <div class="form-row">
+                <label for="nome">Nome completo</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
 
-  <label class="btn">
-    Selecionar foto do ambiente: 
-    <input type="file" id="foto" name="foto" accept="image/*" required>
-  </label>
+            <div class="form-row form-row-2col">
+                <div>
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required
+                           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|edu)(\.[a-zA-Z]{2})?$"
+                           title="Use email .com ou .edu">
+                </div>
+                <div>
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" id="telefone" name="telefone" required placeholder="(11) 99999-9999">
+                </div>
+            </div>
 
-  <div id="previewArea">
-    <h3>Pré-visualização da Foto</h3>
-    <img id="previewImg" src="" alt="Foto do ambiente">
-  </div><br>
+            <div class="form-row">
+                <label for="endereco">Endereço</label>
+                <input type="text" id="endereco" name="endereco" required>
+            </div>
 
-  <button type="submit" class="btn">Enviar Cadastro</button>
-</form>
+            <div class="form-row">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" required
+                       pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$"
+                       title="A senha deve atender aos requisitos abaixo">
+                <div class="senha-requisitos">
+                    <strong>A senha deve conter:</strong>
+                    <ul>
+                        <li>8 caracteres no mínimo</li>
+                        <li>Pelo menos 1 minúscula e 1 maiúscula</li>
+                        <li>Pelo menos 1 número</li>
+                        <li>Pelo menos 1 caractere especial (@$!%*?&)</li>
+                    </ul>
+                </div>
+            </div>
 
-<hr>
+            <div class="form-row">
+                <label>Selecione o seu ambiente:</label>
+                <div class="radio-group">
+                    <label class="radio-card">
+                        <input type="radio" name="ambiente" value="Casa com quintal" required> Casa com quintal
+                    </label>
+                    <label class="radio-card">
+                        <input type="radio" name="ambiente" value="Casa sem quintal"> Casa sem quintal
+                    </label>
+                    <label class="radio-card">
+                        <input type="radio" name="ambiente" value="Apartamento"> Apartamento
+                    </label>
+                </div>
+            </div>
 
-<div style="text-align:center; margin-top:20px;">
-  <p style="margin-bottom:10px;">Veja o Painel de Adotantes:</p>
-  <a href="{{ url_for('main_screen') }}" class="btn">Continuar</a>
-</div>
+            <div class="form-row">
+                <label for="foto">Selecionar foto do ambiente</label>
+                <input type="file" id="foto" name="foto" accept=".png,.jpg,.jpeg,.webp" onchange="previewFoto(event)">
+                <div id="preview-container" style="display:none; margin-top:10px;">
+                    <p style="font-size:13px; font-weight:600; color:#5a2d0c;">Pré-visualização:</p>
+                    <img id="preview" alt="prévia" style="max-height:180px; border-radius:8px; border:1px solid #d4c5a9;">
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Enviar Cadastro</button>
+        </form>
+
+        <p style="margin-top:20px; font-size:14px;">
+            Já tem conta? <a href="{{ url_for('login') }}" style="color:#8b4513; font-weight:700;">Entrar</a>
+        </p>
+    </div>
+</section>
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script>
+function previewFoto(e) {
+    const file = e.target.files[0];
+    const cont = document.getElementById('preview-container');
+    const img = document.getElementById('preview');
+    if (file) {
+        img.src = URL.createObjectURL(file);
+        cont.style.display = 'block';
+    } else {
+        cont.style.display = 'none';
+    }
+}
+</script>
 {% endblock %}

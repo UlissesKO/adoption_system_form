@@ -108,22 +108,33 @@ def preferencias():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
-    # GET → carregar raças filtradas
+    # GET → carregar raças filtradas e os cards dos animais
     if request.method == "GET":
         animal = request.args.get("animal")
         sexo = request.args.get("sexo")
 
         if animal and sexo:
+            # 1. Busca as raças distintas para o dropdown do formulário
             cursor.execute("SELECT DISTINCT raca FROM pets WHERE animal=%s AND sexo=%s", (animal, sexo))
             racas = cursor.fetchall()
+            
+            # 2. Busca os pets que correspondem ao filtro para exibir nos cards
+            cursor.execute("SELECT * FROM pets WHERE animal=%s AND sexo=%s", (animal, sexo))
+            pets_disponiveis = cursor.fetchall()
         else:
+            # Se não houver filtro (ex: usuário acabou de entrar na página)
             racas = []
+            # Traz todos os pets para a tela não ficar vazia (opcional, mas recomendado)
+            cursor.execute("SELECT * FROM pets")
+            pets_disponiveis = cursor.fetchall()
 
         cursor.close()
         conn.close()
-        return render_template("preferencias.html", racas=racas, animal=animal, sexo=sexo)
+        
+        # Enviamos a nova variável 'pets_disponiveis' para o template
+        return render_template("preferencias.html", racas=racas, animal=animal, sexo=sexo, pets_disponiveis=pets_disponiveis)
 
-    # POST → salvar adoção
+    # POST → salvar adoção (Mantido sem alterações)
     if request.method == "POST":
         animal = request.form.get("animal")
         sexo = request.form.get("sexo")
@@ -146,7 +157,6 @@ def preferencias():
         cursor.close()
         conn.close()
         return redirect(url_for("preferencias"))
-
 
 @app.route("/salvar", methods=["POST"])
 def salvar():

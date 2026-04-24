@@ -1,36 +1,75 @@
 {% extends "base.html" %}
-
-{% block title %}Lista de Adotantes{% endblock %}
+{% block title %}Painel — Toca dos Peludos{% endblock %}
 
 {% block content %}
+<section class="hero">
+    <div class="hero-text">
+        <span class="badge">🐾 +500 vidas transformadas</span>
+        <h1>Adote um amigo,<br>ganhe um <span class="highlight">amor</span> para sempre.</h1>
+        <p class="subtitulo">Cães e gatos resgatados esperam por uma família. Encontre seu novo melhor amigo na Toca dos Peludos.</p>
+        <div class="hero-acoes"> 
+            <a href="{{ url_for('cadastro') }}" class="btn btn-outline">Cadastre-se</a>
+        </div>
+    </div>
+</section>
+
 <section class="painel-section">
-  <h2>🐾 Lista de Adotantes</h2>
-  <p class="subtitulo">Pessoas que abriram seu lar para um novo amigo</p>
+    <h2>Painel de Adotantes</h2>
+    <p class="subtitulo">{{ adotantes|length }} adotantes cadastrados</p>
 
-  <table>
-    <tr>
-      <th>Nome</th>
-      <th>Email</th>
-      <th>Ambiente</th>
-    </tr>
-    {% for a in adotantes %}
-    <tr>
-      <td>{{ a.nome }}</td>
-      <td>{{ a.email }}</td>
-      <td>{{ a.ambiente }}</td>
-    </tr>
-    {% endfor %}
-  </table>
+    {% if adotantes %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Telefone</th>
+                <th>Endereço</th>
+                <th>Ambiente</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in adotantes %}
+            <tr>
+                <td>{{ a.nome }}</td>
+                <td>{{ a.email }}</td>
+                <td>{{ a.telefone }}</td>
+                <td>{{ a.endereco }}</td>
+                <td>{{ a.ambiente }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="content-box">
+        <p>Nenhum adotante cadastrado ainda.</p>
+        <a href="{{ url_for('cadastro') }}" class="btn">Fazer primeiro cadastro</a>
+    </div>
+    {% endif %}
 
-  <!-- Ações principais -->
-  <div class="painel-acoes">
-    <a href="{{ url_for('cadastro') }}" class="btn">Cadastrar novo adotante</a>
-  </div>
+    <div class="painel-acoes">
+        <a href="{{ url_for('contato') }}" class="btn btn-outline">Contato</a>
+    </div>
+</section>
 
-  <!-- Caixa de Login -->
-  <div class="painel-login-box">
-    <p style="font-weight:bold; margin-bottom:10px;">Fazer Login</p>
-    <a href="{{ url_for('login') }}" class="btn btn-marrom">Login</a>
-  </div>
+<section class="como-funciona">
+    <h2>Como funciona a adoção?</h2>
+    <div class="steps">
+        <div class="step-card">
+            <div class="step-icon">🔍</div>
+            <h3>1. Escolha</h3>
+            <p>Navegue pelos peludos disponíveis.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-icon">🛡️</div>
+            <h3>2. Cadastre-se</h3>
+            <p>Preencha seus dados e ambiente.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-icon">🏠</div>
+            <h3>3. Leve para casa</h3>
+            <p>Após avaliação, ele vai pro seu lar.</p>
+        </div>
+    </div>
 </section>
 {% endblock %}

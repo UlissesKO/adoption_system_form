@@ -1,3 +1,8 @@
+/* =====================================================
+   Toca dos Peludos — CSS adaptado para nova UI
+   Paleta: marrom #8b4513 / bege #f5f5dc / verde #90ee90
+   ===================================================== */
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -10,12 +15,15 @@ body {
     line-height: 1.6;
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 header {
     background: linear-gradient(135deg, #8b4513, #a0522d);
     color: #fff;
     padding: 15px 30px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 .header-inner {
     max-width: 1200px;
@@ -31,18 +39,25 @@ header {
     font-size: 1.4rem;
     font-weight: 700;
 }
+header nav { display: flex; align-items: center; gap: 4px; }
 header nav a {
     color: #fff;
     text-decoration: none;
-    margin: 0 12px;
+    margin: 0 4px;
     font-weight: 600;
     padding: 6px 12px;
     border-radius: 6px;
     transition: background 0.3s;
 }
 header nav a:hover { background: rgba(255,255,255,0.2); }
+header nav a.btn-nav-cta {
+    background: #90ee90;
+    color: #2d5016;
+    margin-left: 8px;
+}
+header nav a.btn-nav-cta:hover { background: #66cc66; color: #fff; }
 
-/* FOOTER */
+/* ===== FOOTER ===== */
 footer {
     background: #8b4513;
     color: #fff;
@@ -52,7 +67,7 @@ footer {
     margin-top: auto;
 }
 
-/* MAIN */
+/* ===== MAIN ===== */
 main {
     flex: 1;
     padding: 30px 20px;
@@ -65,8 +80,40 @@ h1, h2, h3 {
     margin-bottom: 15px;
     color: #5a2d0c;
 }
+h1 { font-size: 2.5rem; line-height: 1.2; }
 
-/* CONTENT BOX (cards centrais) */
+.subtitulo { color: #6b4423; margin-bottom: 25px; }
+
+/* ===== HERO (novo) ===== */
+.hero {
+    background: linear-gradient(135deg, #f5f5dc 0%, #ffe4b5 100%);
+    padding: 60px 20px;
+    margin: -30px -20px 40px;
+    border-radius: 0 0 24px 24px;
+}
+.hero-text { max-width: 700px; margin: 0 auto; }
+.hero .badge {
+    display: inline-block;
+    background: #ffe4b5;
+    color: #5a2d0c;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+}
+.hero h1 .highlight { color: #8b4513; }
+.hero-acoes {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+/* ===== CONTENT BOX ===== */
 .content-box {
     background: #fff;
     color: #333;
@@ -78,13 +125,13 @@ h1, h2, h3 {
     margin: 0 auto;
     text-align: center;
 }
+.content-box-wide { max-width: 700px; }
 
-/* INPUTS — largura controlada (NÃO 100% global) */
+/* ===== INPUTS ===== */
 input, select, textarea {
     padding: 10px 14px;
     width: 100%;
-    max-width: 320px;
-    margin: 8px auto;
+    margin: 6px 0;
     display: block;
     border: 1.5px solid #d4c5a9;
     border-radius: 8px;
@@ -100,7 +147,65 @@ input:focus, select:focus, textarea:focus {
 }
 textarea { resize: vertical; min-height: 100px; }
 
-/* BOTÕES — tamanho fixo, NÃO ocupam linha inteira */
+/* ===== FORM (novo grid) ===== */
+.form-section { max-width: 800px; margin: 0 auto; }
+.form-grid { text-align: left; }
+.form-row { margin-bottom: 18px; }
+.form-row label {
+    display: block;
+    font-weight: 600;
+    color: #5a2d0c;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+.form-row-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.form-row-2col > div { display: block; }
+
+.senha-requisitos {
+    margin-top: 8px;
+    background: #ffe4b5;
+    color: #5a2d0c;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+.senha-requisitos ul {
+    margin-left: 18px;
+    margin-top: 4px;
+}
+
+/* Radio cards (ambiente) */
+.radio-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+}
+.radio-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    border: 2px solid #d4c5a9;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    color: #5a2d0c;
+    transition: all 0.2s;
+}
+.radio-card:has(input:checked) {
+    border-color: #8b4513;
+    background: #ffe4b5;
+}
+.radio-card input { width: auto; margin: 0; }
+
+/* ===== BOTÕES ===== */
 button, .btn {
     padding: 10px 24px;
     border: none;
@@ -117,6 +222,7 @@ button, .btn {
     width: auto;
     min-width: 160px;
     text-align: center;
+    font-family: inherit;
 }
 button:hover, .btn:hover {
     background: #66cc66;
@@ -124,8 +230,6 @@ button:hover, .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(102,204,102,0.4);
 }
-
-/* Variantes de botão */
 .btn-marrom { background: #8b4513; color: #fff; }
 .btn-marrom:hover { background: #6b3410; color: #fff; }
 .btn-outline {
@@ -135,10 +239,10 @@ button:hover, .btn:hover {
 }
 .btn-outline:hover { background: #8b4513; color: #fff; }
 
-/* TABELA — usada no Painel */
+/* ===== TABELA (Painel) ===== */
+.painel-section { max-width: 1100px; margin: 0 auto; }
 table {
-    width: 90%;
-    max-width: 900px;
+    width: 100%;
     margin: 20px auto;
     border-collapse: collapse;
     background: #fff;
@@ -157,11 +261,46 @@ th {
     font-weight: 700;
 }
 tr:hover { background: #faf6ec; }
+.painel-acoes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
 
-/* ====== CONTATO (mantido da versão anterior) ====== */
+/* ===== COMO FUNCIONA ===== */
+.como-funciona {
+    background: #ffe4b5;
+    margin: 60px -20px 0;
+    padding: 60px 20px;
+    border-radius: 24px 24px 0 0;
+}
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 30px auto 0;
+}
+.step-card {
+    background: #fff;
+    padding: 30px 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+.step-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 12px;
+    background: #f5f5dc;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+}
+
+/* ===== CONTATO ===== */
 .contato-section { max-width: 1100px; margin: 0 auto; }
 .contato-section h2 { font-size: 2.2rem; }
-.subtitulo { color: #6b4423; margin-bottom: 30px; }
 .contato-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -177,10 +316,7 @@ tr:hover { background: #faf6ec; }
 }
 .contato-info h3 { color: #ffe4b5; font-size: 1.5rem; margin-bottom: 15px; }
 .info-lista { list-style: none; margin: 20px 0; }
-.info-lista li {
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-}
+.info-lista li { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.2); }
 .destaque {
     background: rgba(255,255,255,0.15);
     padding: 15px;
@@ -196,27 +332,7 @@ tr:hover { background: #faf6ec; }
 .btn-insta { background: linear-gradient(45deg,#f09433,#dc2743,#bc1888); color: #fff; }
 .btn-insta:hover { opacity: 0.9; color: #fff; }
 
-/* ====== PAINEL (Lista de Adotantes) ====== */
-.painel-section { max-width: 1000px; margin: 0 auto; }
-.painel-acoes {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-top: 25px;
-}
-.painel-login-box {
-    margin-top: 30px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* ====== PREFERÊNCIAS (Adoção) ====== */
+/* ===== PREFERÊNCIAS ===== */
 .preferencias-section { max-width: 600px; margin: 0 auto; }
 .pref-card {
     background: #fff;
@@ -233,35 +349,107 @@ tr:hover { background: #faf6ec; }
     border-bottom: 2px solid #f0e4cc;
     padding-bottom: 8px;
 }
-.pref-row {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 12px;
-}
-.pref-row label {
-    font-weight: 600;
-    color: #5a2d0c;
-    margin-bottom: 4px;
-}
-.pref-acoes {
-    text-align: center;
-    margin-top: 10px;
-}
+.pref-row { display: flex; flex-direction: column; margin-bottom: 12px; }
+.pref-row label { font-weight: 600; color: #5a2d0c; margin-bottom: 4px; }
+.pref-acoes { text-align: center; margin-top: 10px; }
 
-/* ALERTA */
+/* ===== ALERTAS ===== */
 .alert-success {
-    background: #d4edda;
-    color: #155724;
-    padding: 12px;
-    border-radius: 8px;
-    margin: 15px auto;
-    max-width: 500px;
+    background: #d4edda; color: #155724;
+    padding: 12px; border-radius: 8px;
+    margin: 15px auto; max-width: 500px;
+}
+.alert-error {
+    background: #f8d7da; color: #721c24;
+    padding: 12px; border-radius: 8px;
+    margin: 15px auto; max-width: 500px;
 }
 
-/* RESPONSIVO */
+/* ===== RESPONSIVO ===== */
 @media (max-width: 768px) {
     .contato-grid { grid-template-columns: 1fr; }
     .header-inner { flex-direction: column; }
-    table { width: 100%; font-size: 13px; }
+    .form-row-2col { grid-template-columns: 1fr; }
+    table { font-size: 13px; }
     th, td { padding: 10px; }
+    h1 { font-size: 1.8rem; }
+    .hero { padding: 40px 16px; }
+}
+
+/* Container principal dividindo a tela em duas partes */
+.preferencias-layout {
+    display: flex;
+    gap: 40px; /* Espaço entre a barra lateral e os cards */
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+/* LADO ESQUERDO: Barra lateral (Filtros) */
+.sidebar-filtros {
+    flex: 0 0 300px; /* Largura fixa de 300px */
+    border-right: 2px solid #d35400; /* Linha vertical do seu desenho (cor baseada no seu header) */
+    padding-right: 30px;
+}
+
+.sidebar-filtros h2 {
+    margin-bottom: 20px;
+    color: #5c3a21;
+}
+
+/* LADO DIREITO: Conteúdo Principal */
+.conteudo-animais {
+    flex: 1; /* Ocupa todo o espaço restante */
+}
+
+/* Grid para os Cards (Responsivo) */
+.grid-cards {
+    display: grid;
+    /* Cria quantas colunas couberem, com no mínimo 220px cada */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+/* Estilo individual do Card que você desenhou */
+.animal-card {
+    border: 2px solid #d35400; /* Borda laranja baseada no tema */
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Espaço da Foto */
+.animal-foto {
+    background-color: #fdf5e6; /* Cor de fundo provisória */
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid #d35400;
+    font-weight: bold;
+    font-size: 24px;
+    color: #d35400;
+}
+
+.animal-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a foto preencha o espaço sem distorcer */
+}
+
+/* Espaço da Raça/Info */
+.animal-info {
+    padding: 15px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.animal-info h4 {
+    margin: 0;
+    color: #5c3a21;
+    font-size: 18px;
 }
